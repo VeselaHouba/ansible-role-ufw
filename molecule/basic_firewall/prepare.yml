@@ -1,0 +1,35 @@
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: Install packages which are usually present
+      apt:
+        update_cache: true
+        name:
+          - locales
+          - tzdata
+          - apt-transport-https
+          - netcat
+
+    - name: Create dirs missing in docker image
+      file:
+        path: /run/lock/
+        state: directory
+        mode: 0755
+
+    - name: Add open server to /etc/hosts
+      shell: echo "{{ hostvars[item].ansible_default_ipv4.address }} ufw-server-open" >> /etc/hosts
+      with_items: "{{ groups['server_open'] }}"
+      changed_when: false
+
+    - name: Add closed server to /etc/hosts
+      shell: echo "{{ hostvars[item].ansible_default_ipv4.address }} ufw-server-closed" >> /etc/hosts
+      with_items: "{{ groups['server_closed'] }}"
+      changed_when: false
+
+- name: Nginx
+  hosts: server
+  tasks:
+    - name: Install nginx to open port 80
+      apt:
+        name: nginx

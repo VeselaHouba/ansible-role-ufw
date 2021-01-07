@@ -1,0 +1,24 @@
+---
+galaxy_info:
+  author: Jan Michalek
+  role_name: ufw
+  description: Installs and configures ufw
+  license: MIT
+  min_ansible_version: 2.8
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+        - focal
+  galaxy_tags:
+    - system
+    - firewall
+    - security
+    - network
+    - ufw
+dependencies: []

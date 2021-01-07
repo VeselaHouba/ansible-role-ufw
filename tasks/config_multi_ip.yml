@@ -1,0 +1,12 @@
+---
+- name: Configuring simplified multi-ip rules
+  ufw:
+    comment: "{{ item.0.name }}"
+    from_ip: "{{ item.1 }}"
+    port: "{{ item.0.port | default(omit) }}"
+    rule: "{{ item.0.rule | default('allow') }}"
+    delete: "{{ item.0.state | default('false') }}"
+    proto: "{{ item.0.proto | default(omit) }}"
+  with_subelements:
+    - "{{ vars[_ufw_multi_rule] }}"
+    - from_ips

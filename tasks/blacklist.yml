@@ -1,0 +1,16 @@
+---
+- name: Upload blacklist script
+  copy:
+    src: pull_blacklist.sh
+    dest: /opt/pull_blacklist.sh
+    owner: root
+    group: root
+    mode: 0744
+
+- name: Set-up blacklist cron
+  cron:
+    name: blacklist
+    cron_file: blacklist
+    user: root
+    job: /opt/pull_blacklist.sh {{ ufw_blacklist_url }}
+    special_time: daily

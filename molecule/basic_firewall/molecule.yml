@@ -1,0 +1,27 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: hetznercloud
+platforms:
+  - name: "ufw-server-open-${MOLECULE_IMAGE:-debian-10}"
+    server_type: cx11
+    image: "${MOLECULE_IMAGE:-debian-10}"
+    groups:
+      - server
+      - server_open
+  - name: "ufw-server-closed-${MOLECULE_IMAGE:-debian-10}"
+    server_type: cx11
+    image: "${MOLECULE_IMAGE:-debian-10}"
+    groups:
+      - server
+      - server_closed
+  - name: "ufw-client-${MOLECULE_IMAGE:-debian-10}"
+    server_type: cx11
+    image: "${MOLECULE_IMAGE:-debian-10}"
+    groups:
+      - client
+provisioner:
+  name: ansible
+verifier:
+  name: testinfra

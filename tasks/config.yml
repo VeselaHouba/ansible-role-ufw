@@ -1,0 +1,33 @@
+---
+- name: Configuring application rules
+  ufw:
+    name: "{{ item.name }}"
+    rule: "{{ item.rule if item.rule is defined else 'allow' }}"
+    from_ip: "{{ item.from_ip | default(omit)  }}"
+  with_items: "{{ ufw_applications }}"
+
+- name: Adding custom before-rules
+  blockinfile:
+    path: /etc/ufw/before.rules
+    block: "{{ ufw_custom_before_rules }}"
+  notify: reload ufw
+  when: ufw_custom_before_rules | length > 0
+
+- name: Configuring firewall
+  template:
+    src: etc/default/ufw.j2
+    dest: /etc/default/ufw
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload ufw
+
+- name: Make sure iptables won't interfere
+  file:
+    state: absent
+    path: "{{ item }}"
+  with_items:
+    - /etc/iptables/rules.v4
+    - /etc/iptables/rules.v6
+  when: ufw_manage_builtins == "yes"
+  notify: reload ufw

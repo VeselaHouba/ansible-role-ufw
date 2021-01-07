@@ -1,0 +1,3 @@
+---
+ufw_rules_closed:
+  - { port: 80, proto: tcp, comment: http, rule: deny }

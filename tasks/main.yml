@@ -1,0 +1,44 @@
+---
+
+- name: Compatibility check
+  fail: msg="This role only works on Debian and Archlinux systems"
+  when: ansible_os_family != "Debian" and ansible_os_family != "Archlinux"
+
+- import_tasks: install.yml
+  tags:
+    - networking
+    - ufw
+    - ufw-install
+
+- import_tasks: reset.yml
+  tags:
+    - networking
+    - ufw
+    - ufw-reset
+
+- import_tasks: config.yml
+  tags:
+    - networking
+    - ufw
+    - ufw-config
+
+- name: Run for all ufw_rules.* rules
+  include_tasks: config_rules.yml
+  with_items: "{{ lookup('varnames','ufw_rules.*').split(',') }}"
+  loop_control:
+    loop_var: _ufw_rules
+
+- name: Run for all ufw_multi_ip_rules.* rules
+  include_tasks: config_multi_ip.yml
+  with_items: "{{ lookup('varnames','ufw_multi_ip_rules.*').split(',') }}"
+  loop_control:
+    loop_var: _ufw_multi_rule
+
+- import_tasks: service.yml
+  tags:
+    - networking
+    - ufw
+    - ufw-service
+
+- include_tasks: blacklist.yml
+  when: ufw_blacklist_enable
