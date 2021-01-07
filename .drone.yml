@@ -25,7 +25,7 @@ steps:
       - molecule --version
       # Loop instead of matrix
       - |
-        for MOLECULE_IMAGE $${MOLECULE_IMAGES}; do
+        for MOLECULE_IMAGE in $${MOLECULE_IMAGES}; do
           export MOLECULE_IMAGE
           molecule test --all
         done
