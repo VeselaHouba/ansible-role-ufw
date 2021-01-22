@@ -1,6 +1,6 @@
 ---
 - name: Upload blacklist script
-  copy:
+  template:
     src: pull_blacklist.sh
     dest: /opt/pull_blacklist.sh
     owner: root

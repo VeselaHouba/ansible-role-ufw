@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # {{ ansible_managed }}
+PATH=${PATH}:/sbin
 # Chain name
 CHAIN=blacklist
 # REJECT/DROP
