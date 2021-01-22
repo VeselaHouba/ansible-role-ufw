@@ -1,0 +1,8 @@
+---
+ufw_blacklist_enable: true
+ufw_blacklist_url: URL
+ufw_blacklist_cron:
+  month: "*"
+  day: "1"
+  hour: "3"
+  minute: "0"

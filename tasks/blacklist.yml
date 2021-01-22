@@ -13,4 +13,8 @@
     cron_file: blacklist
     user: root
     job: /opt/pull_blacklist.sh {{ ufw_blacklist_url }}
-    special_time: daily
+    month: "{{ ufw_blacklist_cron.month|default('*') }}"
+    weekday: "{{ ufw_blacklist_cron.weekday|default('*') }}"
+    day: "{{ ufw_blacklist_cron.day|default('*') }}"
+    hour: "{{ ufw_blacklist_cron.hour|default('*') }}"
+    minute: "{{ ufw_blacklist_cron.minute|default('*') }}"

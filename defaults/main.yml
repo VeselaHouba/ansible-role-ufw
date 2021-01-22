@@ -47,3 +47,9 @@ ufw_multi_ip_rules: {}
 # they will be picked automatically from hostvars by name pattern
 ufw_blacklist_enable: false
 ufw_blacklist_url: https://some_url_with_blacklist/list.txt
+ufw_blacklist_cron:
+  month: "*"
+  weekday: "*"
+  day: "*"
+  hour: "3"
+  minute: "0"
