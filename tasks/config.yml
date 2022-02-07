@@ -13,6 +13,11 @@
   notify: reload ufw
   when: ufw_custom_before_rules | length > 0
 
+- name: Safe types (legacy)
+  set_fact:
+    _ufw_ipv6: "{{ ufw_ipv6 | bool }}"
+    _ufw_manage_builtins: "{{ ufw_manage_builtins | bool }}"
+
 - name: Configuring firewall
   template:
     src: etc/default/ufw.j2

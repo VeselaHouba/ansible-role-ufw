@@ -18,7 +18,7 @@ ufw_rules: [{ port: 22, rule: allow }]
 # list of profiles located in /etc/ufw/applications.d
 ufw_applications: []
 # /etc/defaut/ufw settings
-ufw_ipv6: "yes"
+ufw_ipv6: true
 ufw_default_input_policy: DROP
 ufw_default_output_policy: ACCEPT
 ufw_default_forward_policy: DROP
@@ -29,7 +29,7 @@ ufw_logging: "off"
 # always reset the firewall
 ufw_reset: false
 # reset all other firewall settings other than UFW's
-ufw_manage_builtins: "no"
+ufw_manage_builtins: false
 # Custom rules to /etc/ufw/before.rules as single string
 ufw_custom_before_rules: ""
 # define same rule for multiple IPs
