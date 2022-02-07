@@ -4,21 +4,24 @@ dependency:
 driver:
   name: hetznercloud
 platforms:
-  - name: "ufw-server-open-${MOLECULE_IMAGE:-debian-10}"
+  - name: ${REPO_NAME}-${MOLECULE_IMAGE}-${REF}-srv1
     server_type: cx11
-    image: "${MOLECULE_IMAGE:-debian-10}"
+    image: ${MOLECULE_IMAGE}
+    custom_ssh_key_name: molecule.admin
     groups:
       - server
       - server_open
-  - name: "ufw-server-closed-${MOLECULE_IMAGE:-debian-10}"
+  - name: ${REPO_NAME}-${MOLECULE_IMAGE}-${REF}-srv2
     server_type: cx11
-    image: "${MOLECULE_IMAGE:-debian-10}"
+    image: ${MOLECULE_IMAGE}
+    custom_ssh_key_name: molecule.admin
     groups:
       - server
       - server_closed
-  - name: "ufw-client-${MOLECULE_IMAGE:-debian-10}"
+  - name: ${REPO_NAME}-${MOLECULE_IMAGE}-${REF}-client
     server_type: cx11
-    image: "${MOLECULE_IMAGE:-debian-10}"
+    image: ${MOLECULE_IMAGE}
+    custom_ssh_key_name: molecule.admin
     groups:
       - client
 provisioner:
